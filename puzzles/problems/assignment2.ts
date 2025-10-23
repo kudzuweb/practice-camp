@@ -55,6 +55,10 @@
  *     ]
  */
 
+// sketch: okay, let's do this one piece at a time
+// Update inventory
+//  input: inventory: { [sku: string]: { price: number; stock: number } } output: { ...updated inventory... }
+// what was i thinking, i am mentally and emotionally exhausted. i'll try this tomorrow
 export function processVendingSessions(input) {
   return {}
 }
