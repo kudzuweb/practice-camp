@@ -42,21 +42,26 @@ export function firstChars(words: string[]): (string | "")[] {
 // ============================================================
 
 // 3) filter → onlyInRange
+// time: 1:42. had to correct inclusivity to pass last test
 // Keep numbers within inclusive [min, max].
 // Examples:
 //   onlyInRange([1, 5, 9, 3], 3, 5) -> [5, 3]
 //   onlyInRange([], 0, 1) -> []
 export function onlyInRange(nums: number[], min: number, max: number): number[] {
-    throw new Error("Not implemented");
+    const numsInRange = nums.filter((num) => num >= min && num <= max)
+    return numsInRange
 }
 
 // 4) filter → nonEmptyTrimmed
+// time: 2:14 another 2ish mins to debug, no lookups!
 // Keep strings that are non-empty after trimming whitespace.
 // Examples:
 //   nonEmptyTrimmed([" a ", "  ", "", "b"]) -> [" a ", "b"]
 //   nonEmptyTrimmed([]) -> []
 export function nonEmptyTrimmed(items: string[]): string[] {
-    throw new Error("Not implemented");
+    const trimmed = items.map((item) => item.trim())
+    const noEmptyStrings = trimmed.filter((item) => item != "")
+    return noEmptyStrings
 }
 
 // ============================================================
@@ -64,21 +69,32 @@ export function nonEmptyTrimmed(items: string[]): string[] {
 // ============================================================
 
 // 5) reduce → sumAbsolute
+// time: 2:33. 
 // Sum of absolute values.
 // Examples:
 //   sumAbsolute([-2, 3, -4]) -> 9
 //   sumAbsolute([]) -> 0
 export function sumAbsolute(nums: number[]): number {
-    throw new Error("Not implemented");
+    if (nums.length < 1) return 0
+    const absValues = nums.map((num) => num < 0 ? num * -1 : num)
+    const sum = absValues.reduce((acc, curr) => acc + curr)
+    return sum
 }
 
 // 6) reduce → longestWord
 // Return the longest string; on ties, return the first. Empty input -> null.
+// time:
 // Examples:
 //   longestWord(["a","abcd","abc"]) -> "abcd"
 //   longestWord([]) -> null
 export function longestWord(words: string[]): string | null {
-    throw new Error("Not implemented");
+    if (words.length < 1) return null;
+    const longestWord = words.reduce((longest, word) => {
+        if (word.length > longest.length) return word;
+        return longest
+    }
+    )
+    return longestWord
 }
 
 // 7) reduce → countsByParity
@@ -87,7 +103,21 @@ export function longestWord(words: string[]): string | null {
 //   countsByParity([1,2,3,4]) -> { even: 2, odd: 2 }
 //   countsByParity([]) -> { even: 0, odd: 0 }
 export function countsByParity(nums: number[]): { even: number; odd: number } {
-    throw new Error("Not implemented");
+    if (nums.length < 1) return { even: 0, odd: 0 }
+    // nums.filter(num => num % 2 === 0).length
+    let evens: number = nums.reduce((count, currentNumber) => {
+        count = (currentNumber % 2 === 0) ? count + 1 : count;
+        return count
+    }, 0);
+
+    let odds: number = nums.reduce((count, currentNumber) => {
+        count = (currentNumber % 2 !== 0) ? count + 1 : count;
+        return count
+    }, 0);
+    const counts = { even: evens, odd: odds }
+
+    return counts
+
 }
 
 // ============================================================
@@ -95,21 +125,23 @@ export function countsByParity(nums: number[]): { even: number; odd: number } {
 // ============================================================
 
 // 8) find → firstMultipleOf
+// time: 1:13
 // Return the first number divisible by `k`, or null if none.
 // Examples:
 //   firstMultipleOf([5, 7, 12, 20], 4) -> 12
 //   firstMultipleOf([1, 3, 5], 2) -> null
 export function firstMultipleOf(nums: number[], k: number): number | null {
-    throw new Error("Not implemented");
+    return nums.find((num) => num % k == 0) || null
+
 }
 
 // 9) find → firstWithMinLength
 // Return the first string whose length >= minLen, else null.
-// Examples:
+// Examples: 58s
 //   firstWithMinLength(["a","bb","ccc"], 2) -> "bb"
 //   firstWithMinLength([], 1) -> null
 export function firstWithMinLength(words: string[], minLen: number): string | null {
-    throw new Error("Not implemented");
+    return words.find((word) => word.length >= minLen) || null
 }
 
 // ============================================================
@@ -122,7 +154,7 @@ export function firstWithMinLength(words: string[], minLen: number): string | nu
 //   hasDuplicate([1,2,3,2]) -> true
 //   hasDuplicate([1,2,3]) -> false
 export function hasDuplicate<T>(arr: T[]): boolean {
-    throw new Error("Not implemented");
+
 }
 
 // 11) some → anyStartsWithLetter
