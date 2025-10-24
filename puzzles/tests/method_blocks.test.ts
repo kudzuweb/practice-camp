@@ -79,7 +79,7 @@ describe("onlyInRange", () => {
 
 describe("nonEmptyTrimmed", () => {
     it("keeps strings that are non-empty after trim", () => {
-        expect(nonEmptyTrimmed([" a ", "  ", "", "b"])).toEqual([" a ", "b"]);
+        expect(nonEmptyTrimmed([" a ", "  ", "", "b"])).toEqual(["a", "b"]);
     });
 
     it("empty -> empty", () => {
