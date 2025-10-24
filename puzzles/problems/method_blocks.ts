@@ -11,21 +11,30 @@
 // ============================================================
 
 // 1) map → scaleBy
+// time: 1:15. oneshotted
 // Multiply each number by the given factor.
 // Examples:
 //   scaleBy([1, 2, 3], 10) -> [10, 20, 30]
 //   scaleBy([], 5) -> []
 export function scaleBy(nums: number[], factor: number): number[] {
-    throw new Error("Not implemented");
+    const scaledNums = nums.map((num) => num = num * factor)
+    return scaledNums
 }
 
 // 2) map → firstChars
+// time: 6:47. wasn't sure how to separate the strings, had to look up .split and figure out the syntax for chaining them
+//      12:40 to get the last unit test passing. had to try a few different solutions for where to place the conditional
+//      to not cause type errors
 // Return the first character of each non-empty string; use "" for empty.
 // Examples:
 //   firstChars(["hi", "", "world"]) -> ["h", "", "w"]
 //   firstChars([]) -> []
-export function firstChars(words: string[]): string[] {
-    throw new Error("Not implemented");
+export function firstChars(words: string[]): (string | "")[] {
+    const characterArrays = words.map((word) => word.split("").map((char) => char))
+    console.log(characterArrays)
+    const firstLetter: string[] = characterArrays.map((word) => word.length > 0 ? word[0] : "")
+
+    return firstLetter
 }
 
 // ============================================================
