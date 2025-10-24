@@ -260,7 +260,7 @@ export function expandPairs<T>(pairs: Array<[T, number]>): T[] {
 // ============================================================
 
 // 18) composition → topKLongestLowercased
-// time:
+// time: 10:31
 // Return the longest `k` words (by length) in lowercase, preserving order among equals.
 // If k >= words.length, return all in the appropriate order.
 // Do not mutate input.
@@ -268,5 +268,8 @@ export function expandPairs<T>(pairs: Array<[T, number]>): T[] {
 //   topKLongestLowercased(["A","bbbb","Cc","ddd"], 2) -> ["bbbb","ddd"]
 //   topKLongestLowercased(["One","Two"], 5) -> ["one","two"]
 export function topKLongestLowercased(words: string[], k: number): string[] {
-    throw new Error("Not implemented");
+    return words
+        .map((w) => w.toLowerCase())
+        .sort((a, b) => b.length - a.length)
+        .slice(0, k);
 }
