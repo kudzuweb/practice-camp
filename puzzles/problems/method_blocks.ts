@@ -150,20 +150,21 @@ export function firstWithMinLength(words: string[], minLen: number): string | nu
 
 // 10) some → hasDuplicate
 // Return true if any value appears more than once.
-// Examples:
+// Examples: 4:14
 //   hasDuplicate([1,2,3,2]) -> true
 //   hasDuplicate([1,2,3]) -> false
 export function hasDuplicate<T>(arr: T[]): boolean {
-
+    return arr.some((val, index) => arr.indexOf(val) != index)
 }
 
 // 11) some → anyStartsWithLetter
+// time: 53s. took maybe 20s to add case insensitive solution
 // Case-insensitive: return true if any word starts with `letter`.
 // Examples:
 //   anyStartsWithLetter(["Apple","banana"], "a") -> true
 //   anyStartsWithLetter([], "z") -> false
 export function anyStartsWithLetter(words: string[], letter: string): boolean {
-    throw new Error("Not implemented");
+    return words.some((word) => word[0].toLowerCase() == letter.toLowerCase())
 }
 
 // ============================================================
@@ -172,21 +173,30 @@ export function anyStartsWithLetter(words: string[], letter: string): boolean {
 
 // 12) every → allWithinBudget
 // Return true if all amounts are <= budget. Empty -> true.
+// time: 1:34. oneshotted
 // Examples:
 //   allWithinBudget([5, 10, 3], 10) -> true
 //   allWithinBudget([5, 12], 10) -> false
 export function allWithinBudget(amounts: number[], budget: number): boolean {
-    throw new Error("Not implemented");
+    if (amounts.length < 1) return true;
+    return amounts.every((amount) => amount <= budget)
 }
 
 // 13) every → allAlphanumeric
 // Return true if every string consists only of letters or digits.
 // Treat empty array as true. Empty string "" is valid (no disallowed chars).
+// time: 4:58
 // Examples:
 //   allAlphanumeric(["abc","A1","9"]) -> true
 //   allAlphanumeric(["ok!"]) -> false
 export function allAlphanumeric(words: string[]): boolean {
-    throw new Error("Not implemented");
+    if (words.length < 1) return true
+    return words.every((word) => [...word].every((char) =>
+        (char >= "a" && char <= "z") ||
+        (char >= "A" && char <= "Z") ||
+        (char >= "0" && char <= "9")
+    )
+    )
 }
 
 // ============================================================
@@ -194,21 +204,25 @@ export function allAlphanumeric(words: string[]): boolean {
 // ============================================================
 
 // 14) sort → sortNumbersAsc
+// time: 35s. another 90s to debug(move structured clone out into it's own variable)
 // Return a new array sorted ascending. Do not mutate input.
 // Examples:
 //   sortNumbersAsc([3,1,2]) -> [1,2,3]
 //   sortNumbersAsc([]) -> []
 export function sortNumbersAsc(nums: number[]): number[] {
-    throw new Error("Not implemented");
+    const newNums = structuredClone(nums)
+    return newNums.sort((a, b) => a - b)
 }
 
 // 15) sort → sortByLengthDesc
+// time: 2:53
 // Return a new array of strings sorted by length descending; stable for ties.
 // Do not mutate input.
 // Examples:
 //   sortByLengthDesc(["a","bbb","cc"]) -> ["bbb","cc","a"]
 export function sortByLengthDesc(words: string[]): string[] {
-    throw new Error("Not implemented");
+    const newWords = structuredClone(words)
+    return newWords.sort((a, b) => b.length - a.length)
 }
 
 // ============================================================
@@ -216,21 +230,29 @@ export function sortByLengthDesc(words: string[]): string[] {
 // ============================================================
 
 // 16) flatMap → splitOnSpaces
+// time: 7:04 bc i forgot to stop the timer before running tests and making the ones that failed pass lol
 // Split each sentence on spaces and flatten once.
 // Examples:
 //   splitOnSpaces(["a b", "c"]) -> ["a","b","c"]
 //   splitOnSpaces([]) -> []
 export function splitOnSpaces(lines: string[]): string[] {
-    throw new Error("Not implemented");
+    return lines.flatMap((line: string) => line.split(" "))
 }
 
 // 17) flatMap → expandPairs
+// time: 5:19
 // Each entry is a pair [value, count]; expand into `count` copies of value.
 // Examples:
 //   expandPairs([["x",3],["y",1]]) -> ["x","x","x","y"]
 //   expandPairs([]) -> []
 export function expandPairs<T>(pairs: Array<[T, number]>): T[] {
-    throw new Error("Not implemented");
+    return pairs.flatMap(([value, count]) => {
+        const multiplied = [];
+        for (let i = 0; i < count; i++) {
+            multiplied.push(value);
+        }
+        return multiplied;
+    });
 }
 
 // ============================================================
@@ -238,6 +260,7 @@ export function expandPairs<T>(pairs: Array<[T, number]>): T[] {
 // ============================================================
 
 // 18) composition → topKLongestLowercased
+// time:
 // Return the longest `k` words (by length) in lowercase, preserving order among equals.
 // If k >= words.length, return all in the appropriate order.
 // Do not mutate input.
