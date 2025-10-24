@@ -35,7 +35,6 @@ export function convertToPercentages(scores: { student: string, points: number, 
   //   return { student: score.student, grade: grade }
   // });
 
-  //TODO: fix failing unit tests
   const percentageScores: PercentageGrades = []
   for (let i = 0; i < scores.length; i++) {
     const score = scores[i]
@@ -59,12 +58,14 @@ type CatType = {
   eyes: string,
 
 }
-function findBlueEyedCats(cats: CatType[]): string[] {
-  return cats
-    .filter((cat) => cat.eyes == "blue")
-    .map((cat) => cat.name)
+
+export function findBlueEyedCats(cats: CatType[]): string[] {
+  const catNames: string[] = []
+  const blueEyedCats = cats.filter((cat) => cat.eyes == "blue")
+  blueEyedCats.map((cat) => catNames.push(cat.name))
+  return catNames
 }
-// console.log(findBlueEyedCats([{ name: "oreo", pelt: "tuxedo", eyes: "green" }, { name: "tiger", pelt: "orange", eyes: "blue" }]))
+
 
 // given an array of numbers, return true if the array of numbers strictly decreases. examples:
 // [5,4,3,1] => true
@@ -73,11 +74,11 @@ function findBlueEyedCats(cats: CatType[]): string[] {
 // [9,10,8,5,4,3] => false
 
 // want to loop over the array and check if each number is less than the previous. if it's greater return false
-function isDecreasing(input: number[]): boolean {
+export function isDecreasing(input: number[]): boolean {
   for (let i = 1; i < input.length; i++) {
-    if (input[i] > input[i - 1]) {
-      return false
-    }
+    const num = input[i]
+    const prev = input[i - 1]
+    if (num >= prev) return false;
   }
   return true
 }

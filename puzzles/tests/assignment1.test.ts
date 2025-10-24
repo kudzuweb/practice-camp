@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest"
-import { isLargestNumberEven, convertToPercentages } from "../problems/assignment1"
+import { isLargestNumberEven, convertToPercentages, findBlueEyedCats, isDecreasing } from "../problems/assignment1"
 
 describe("isLargestNumberEven (Assignment 1)", () => {
     it("matches the provided examples (table-driven)", () => {
@@ -52,5 +52,51 @@ describe("convertToPercentages (Assignment 1)", () => {
             { student: "max", grade: 1 },
         ]
         expect(convertToPercentages(input)).toEqual(output)
+    })
+    it("converts a single student's score correctly again", () => {
+        const input = [{ student: "steve", points: 70, maxPossiblePoints: 100 }]
+        const output = [{ student: "steve", grade: 0.7 }]
+        expect(convertToPercentages(input)).toEqual(output)
+    })
+})
+
+describe("findBlueEyedCats (Assignment 1)", () => {
+    it("returns names of all cats with blue eyes", () => {
+        const cats = [
+            { name: "oreo", pelt: "tuxedo", eyes: "green" },
+            { name: "tiger", pelt: "orange", eyes: "blue" },
+        ]
+        expect(findBlueEyedCats(cats)).toEqual(["tiger"])
+    })
+
+    it("returns an empty array when no cats have blue eyes", () => {
+        const cats = [{ name: "kitty", pelt: "orange", eyes: "red" }]
+        expect(findBlueEyedCats(cats)).toEqual([])
+    })
+
+    it("returns multiple names when several cats have blue eyes", () => {
+        const cats = [
+            { name: "misty", pelt: "gray", eyes: "blue" },
+            { name: "whiskers", pelt: "white", eyes: "blue" },
+            { name: "boots", pelt: "black", eyes: "green" },
+        ]
+        expect(findBlueEyedCats(cats)).toEqual(["misty", "whiskers"])
+    })
+})
+
+describe("isDecreasing (Assignment 1)", () => {
+    it("returns true for arrays that strictly decrease", () => {
+        expect(isDecreasing([5, 4, 3, 1])).toBe(true)
+        expect(isDecreasing([99, 43, 10])).toBe(true)
+    })
+
+    it("returns false when the sequence increases at any point", () => {
+        expect(isDecreasing([5, 4, 3, 2, 3])).toBe(false)
+        expect(isDecreasing([9, 10, 8, 5, 4, 3])).toBe(false)
+    })
+
+    it("handles edge cases: empty or single-element arrays", () => {
+        expect(isDecreasing([])).toBe(true)
+        expect(isDecreasing([7])).toBe(true)
     })
 })
