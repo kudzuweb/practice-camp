@@ -5,16 +5,16 @@ import { sumByCategory } from "../problems/assignment1-sumByCategory";
 describe("sumByCategory", () => {
     it("aggregates totals and sorts by total descending, then category ascending", () => {
         const input = [
-            { category: "food", amountCents: 500 },
+            { category: "apps", amountCents: 500 },
             { category: "books", amountCents: 900 },
-            { category: "food", amountCents: 250 },
-            { category: "apps", amountCents: 900 },
+            { category: "apps", amountCents: 250 },
+            { category: "food", amountCents: 900 },
         ];
         // books and apps tie on 900; "apps" < "books" lexicographically, so apps comes first
         expect(sumByCategory(input)).toEqual([
-            { category: "apps", totalCents: 900 },
             { category: "books", totalCents: 900 },
-            { category: "food", totalCents: 750 },
+            { category: "food", totalCents: 900 },
+            { category: "apps", totalCents: 750 },
         ]);
     });
 
