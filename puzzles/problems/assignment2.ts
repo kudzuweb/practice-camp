@@ -55,10 +55,32 @@
  *     ]
  */
 
-// sketch: okay, let's do this one piece at a time
-// Update inventory
-//  input: inventory: { [sku: string]: { price: number; stock: number } } output: { ...updated inventory... }
-// what was i thinking, i am mentally and emotionally exhausted. i'll try this tomorrow
+// sketch: let's map this tree first on paper
+
+// pseudo:
+// set state: inventory = sessions.inventory, coin pouch = [], credit = 0, dispensed = false, errors = []
+// loop over array of sessions
+// loop over array of actions
+//  check action
+//    if insert, check denom
+//      if denom invalid, record error "invalid denomination" and continue session
+//    if select, check if sku is valid
+//      if no, record error "invalid sku" and continue session
+//      else check if credit >= price
+//        if no, record error "insufficient funds" and continue session
+//        else check inventory
+//          if sku not in inventory, record error and continue session
+//          else set dispensed to true,
+//            update inventory,
+//            calculate spent & changeTotal
+//            changeCoins = greedy breakdown of denoms based on spent
+//            if errors ! empty, add errors
+//            return receipt
+//    if cancel, return receipt with refund coinpouch exactly
+//    if noop, continue session
+//  return updated inventory and array of receipts
+
+
 export function processVendingSessions(input) {
   return {}
 }
